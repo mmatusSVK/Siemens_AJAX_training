@@ -3,7 +3,7 @@ class Api::CitationsController < Api::ApiController
   def index
     @citation = Citation.order('RANDOM()').first
 
-    params[:jsonp] ? send_data("citation(" + @citation.to_json + ")") : render('index.json.jbuilder')
+    params[:jsonp] ? render(json: @citation.to_json, callback: 'citation') : render('index.json.jbuilder')
   end
 
   def create
